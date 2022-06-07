@@ -1,12 +1,29 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import { useRouter } from 'next/router';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 export default function Home() {
+
+  const router = useRouter();
+  const currentUser = false;
+
+  const onLink = (href) => {
+    router.push(href)
+  }
+
+  const handleEnter = () => {
+    if (currentUser) {
+      onLink('/login')
+    } else {
+      onLink('/signup')
+    }
+  }
+
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Game Creations
         </title>
@@ -24,7 +41,14 @@ export default function Home() {
           height: '100vh',
           width: '100%'
         }}>
-        <h1>Let's Play!</h1>
+        <Typography
+          variant='h3'
+          sx={{
+            textAlign: 'center',
+            width: '300px'
+          }}>
+          {'Welcome to the Arcade'}
+        </Typography>
 
         <Button
           variant='contained'
@@ -32,19 +56,12 @@ export default function Home() {
             width: '20vh',
             margin: '20px'
           }}
-          >Login
-        </Button>
-
-        <Button
-          variant='contained'
-          sx={{
-            width: '20vh',
-            margin: '20px'
-          }}
-          >Sign-In
+          onClick={handleEnter}
+          >Enter
         </Button>
 
       </Box>
     </div>
   )
 }
+
